@@ -9,10 +9,13 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static final String KEY_INDEX = "index";
+
     private Button mTrueButton;
     private Button mFalseButton;
 
     private TextView mQuestionTextView;
+
     private Button mNextButton;
     private Button mPrevButton;
 
@@ -34,6 +37,10 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(v -> {
@@ -74,6 +81,12 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
     private void updateQuestion() {
         int questionResId = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(questionResId);
@@ -82,13 +95,8 @@ public class QuizActivity extends AppCompatActivity {
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
-        int messageResId = 0;
-
-        if (userPressedTrue == answerIsTrue) {
-            messageResId = R.string.correct_toast;
-        } else {
-            messageResId = R.string.incorrect_toast;
-        }
+        int messageResId = (userPressedTrue == answerIsTrue) ?
+                R.string.correct_toast : R.string.incorrect_toast;
 
         Toast.makeText(QuizActivity.this, messageResId,
                 Toast.LENGTH_SHORT).show();

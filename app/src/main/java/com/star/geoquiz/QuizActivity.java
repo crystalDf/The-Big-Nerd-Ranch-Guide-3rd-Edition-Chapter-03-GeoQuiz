@@ -110,7 +110,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         while (true) {
-            mCurrentIndex = (mCurrentIndex + mQuestionBank.length - 1) % mQuestionBank.length;
+            mCurrentIndex = (mCurrentIndex - 1 + mQuestionBank.length) % mQuestionBank.length;
             if (!mAnswered[mCurrentIndex]) {
                 break;
             }

@@ -90,9 +90,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void getNextQuestion() {
-        if (mAllAnswered) {
-            return;
-        }
 
         while (true) {
             mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
@@ -105,9 +102,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void getPrevQuestion() {
-        if (mAllAnswered) {
-            return;
-        }
 
         while (true) {
             mCurrentIndex = (mCurrentIndex - 1 + mQuestionBank.length) % mQuestionBank.length;
@@ -125,12 +119,14 @@ public class QuizActivity extends AppCompatActivity {
 
         mTrueButton.setEnabled(!mAnswered[mCurrentIndex]);
         mFalseButton.setEnabled(!mAnswered[mCurrentIndex]);
+
+        mPrevButton.setEnabled(!mAllAnswered);
+        mNextButton.setEnabled(!mAllAnswered);
+        mPrevImageButton.setEnabled(!mAllAnswered);
+        mNextImageButton.setEnabled(!mAllAnswered);
     }
 
     private void checkAnswer(boolean userPressedTrue) {
-        if (mAnswered[mCurrentIndex]) {
-            return;
-        }
 
         mTrueButton.setEnabled(false);
         mFalseButton.setEnabled(false);
@@ -149,10 +145,10 @@ public class QuizActivity extends AppCompatActivity {
 
         if (mAllAnswered) {
 
-            mPrevButton.setEnabled(false);
-            mNextButton.setEnabled(false);
-            mPrevImageButton.setEnabled(false);
-            mNextImageButton.setEnabled(false);
+            mPrevButton.setEnabled(!mAllAnswered);
+            mNextButton.setEnabled(!mAllAnswered);
+            mPrevImageButton.setEnabled(!mAllAnswered);
+            mNextImageButton.setEnabled(!mAllAnswered);
 
             Toast.makeText(QuizActivity.this,
                     "Score: " + new DecimalFormat("######0.00").format(getScore()),

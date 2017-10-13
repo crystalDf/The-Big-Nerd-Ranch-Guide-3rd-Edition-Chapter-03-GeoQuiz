@@ -122,12 +122,18 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestion() {
         int questionResId = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(questionResId);
+
+        mTrueButton.setEnabled(!mAnswered[mCurrentIndex]);
+        mFalseButton.setEnabled(!mAnswered[mCurrentIndex]);
     }
 
     private void checkAnswer(boolean userPressedTrue) {
         if (mAnswered[mCurrentIndex]) {
             return;
         }
+
+        mTrueButton.setEnabled(false);
+        mFalseButton.setEnabled(false);
 
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
@@ -142,6 +148,12 @@ public class QuizActivity extends AppCompatActivity {
         updateAnswered();
 
         if (mAllAnswered) {
+
+            mPrevButton.setEnabled(false);
+            mNextButton.setEnabled(false);
+            mPrevImageButton.setEnabled(false);
+            mNextImageButton.setEnabled(false);
+
             Toast.makeText(QuizActivity.this,
                     "Score: " + new DecimalFormat("######0.00").format(getScore()),
                     Toast.LENGTH_SHORT).show();

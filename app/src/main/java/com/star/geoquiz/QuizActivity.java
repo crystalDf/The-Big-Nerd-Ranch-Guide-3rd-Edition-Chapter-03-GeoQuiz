@@ -11,8 +11,6 @@ import java.text.DecimalFormat;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private static final int NUMBER_OF_QUESTION = 6;
-
     private static final String KEY_INDEX = "index";
     private static final String KEY_CORRECT = "correct";
     private static final String KEY_ANSWERED = "answered";
@@ -40,8 +38,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentIndex = 0;
 
-    private boolean[] mCorrect = new boolean[NUMBER_OF_QUESTION];
-    private boolean[] mAnswered = new boolean[NUMBER_OF_QUESTION];
+    private boolean[] mCorrect = new boolean[mQuestionBank.length];
+    private boolean[] mAnswered = new boolean[mQuestionBank.length];
     private boolean mAllAnswered;
 
     @Override
@@ -182,6 +180,6 @@ public class QuizActivity extends AppCompatActivity {
                 "Number of Correct Answer: " + numberOfCorrect,
                 Toast.LENGTH_SHORT).show();
 
-        return ((double) numberOfCorrect) / NUMBER_OF_QUESTION * 100;
+        return ((double) numberOfCorrect) / mQuestionBank.length * 100;
     }
 }

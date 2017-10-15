@@ -143,10 +143,10 @@ public class QuizActivity extends AppCompatActivity {
 
         if (mAllQuestionsAnswered) {
 
-            mPrevButton.setEnabled(!mAllQuestionsAnswered);
-            mNextButton.setEnabled(!mAllQuestionsAnswered);
-            mPrevImageButton.setEnabled(!mAllQuestionsAnswered);
-            mNextImageButton.setEnabled(!mAllQuestionsAnswered);
+            mPrevButton.setEnabled(false);
+            mNextButton.setEnabled(false);
+            mPrevImageButton.setEnabled(false);
+            mNextImageButton.setEnabled(false);
 
             Toast.makeText(QuizActivity.this,
                     "Score: " + new DecimalFormat("######0.00").format(getScore()),
